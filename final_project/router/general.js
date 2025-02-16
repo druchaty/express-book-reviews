@@ -58,4 +58,26 @@ public_users.get('/review/:isbn', function (req, res) {
   res.send(books[isbn].reviews);
 });
 
+
+const axios = require('axios').default;
+
+const testEndpoint = (message, url) => {
+  const req = axios.get(url);
+  console.log(req);
+  req.then(resp => {
+    console.log("\n");
+    console.log(`${message}: GET "${url}"`);
+    console.log(resp.data);
+  })
+    .catch(err => {
+      console.log("Error testing: " + url);
+      console.log(err.toString());
+    });
+}
+
+testEndpoint("Getting the list of books", "http://localhost:5000/");
+testEndpoint("Getting the book details based on ISBN", "http://localhost:5000/isbn/1");
+testEndpoint("Getting books for the author", "http://localhost:5000/author/Unknown");
+testEndpoint("Getting book details based on title", "http://localhost:5000/title/Fairy tales");
+
 module.exports.general = public_users;
