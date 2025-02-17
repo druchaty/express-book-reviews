@@ -45,10 +45,16 @@ public_users.get('/author/:author', function (req, res) {
 public_users.get('/title/:title', function (req, res) {
   const title = req.params.title;
 
-  let matchingBooks = Object.fromEntries(Object.entries(books)
-    .filter(([isbn, book]) => book.title === title));
+  let matchingBooks = Object.values(books)
+    .filter((book) => book.title === title);
 
-  res.send(matchingBooks);
+  if (matchingBooks.length > 1) {
+    res.send(matchingBooks);
+  } else if (matchingBooks.length === 1) {
+    res.send(matchingBooks[0]);
+  } else {
+    res.status(404).json({ message: `Book having title '${title}' not found!` })
+  }
 });
 
 //  Get book review

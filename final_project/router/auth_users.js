@@ -75,7 +75,7 @@ registeredUsers.delete("/auth/review/:isbn", (req, res) => {
 
   if (book) {
     delete book.reviews[username];
-    res.status(200).json({message: `The review has been removed for user ${username}`});
+    res.status(200).json({message: `The reviews for ISBN ${isbn} posted by uesr '${username}' deleted`});
   } else {
     return res.status(404).json({ message: `Unable to find book having ISBN=${isbn}` });
   }
